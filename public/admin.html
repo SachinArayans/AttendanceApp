@@ -1,0 +1,241 @@
+<html>
+<head>
+<title>Admin | Digital Attendence Managment System | Attend2.web.app </title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+.navbar{
+border-radius:0px;
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #stAttendence, #stAttendence * {
+    visibility: visible;
+  }
+  #stAttendence {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Admin | attend2.web.App</a>
+    </div>
+    <!--<ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Page 1</a></li>
+      <li><a href="#">Page 2</a></li>
+    </ul>-->
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href=""onclick="firebase.auth().signOut()"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+	  <li title="scn.arn@gmail.com"><a href="mailto:scn.arn@gmail.com"><span class="glyphicon glyphicon-phone"></span> Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid">
+<div class="row">
+<div class="col-lg-9">
+
+<div class="row">
+<style>
+.my-dp{
+width:100px;
+height:100px;
+margin:auto;
+vertical-align:middle;
+float:right;
+}
+.dp-control{
+	visibility:hidden;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color:#fff;
+  background:#5c165d;
+  padding:5px;
+  font-size:25px;
+  border-radius:10px;
+  transform: translate(-50%, -50%);
+  opacity:0;
+}
+.hv:hover .centered{
+opacity:1;
+}
+</style>
+<div class="col-lg-2 hv">
+<label for="dpname">
+<img src="https://www.w3schools.com/howto/img_avatar2.png" class="img-circle my-dp" id="my-dp-id">
+<div class="centered"><i class="glyphicon glyphicon-edit"></i></div>
+<input type="file" id="dpname" class="dp-control" oninput="myDpFunction()">
+</label>
+</div>
+
+<div class="col-lg-8"><h2 id="dp-name">Loading...</h2><p class="text-muted" id="dpsub">Subjects: Loading...</p><p id="dpemail">Loading...</p></div>
+<div class="col-lg-2">
+<!--<button class="btn" style="margin-top:35%">Edit</button>-->
+</div>
+
+</div>
+<br>
+
+<div class="panel panel-success">
+<div class="panel-heading"><input type="text" id="attSearch" class="form-control" placeholder="Search Students..." style="width:30%;display:inline;margin-right:20px">
+Select Date:<input type="date" oninput="showAttendenceResult(this.value);" class="form-control" style="display:inline;width:16%;margin-left:5px;margin-right:20px;"><button onclick="window.print();" class="btn btn-danger" style="margin-right:30px;">Print </button>STUDENTS ATTENDENCE DETAIL <i class="glyphicon glyphicon-hand-down"></i></div>
+<div class="panel-body">
+<table id="stAttendence" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+				<th>Date (yyyy-mm-dd)</th>
+                <th>1st</th>
+                <th>2nd</th>
+                <th>3rd</th>
+                <th>4th</th>
+                <th>5th</th>
+				<th>6th</th>
+				<th>7th</th>
+				<th>8th</th>
+            </tr>
+        </thead>
+        <tbody id="studentAttendenceRecord">
+    
+		<tbody>
+</table>	
+</div>
+</div>
+
+</div>
+<div class="col-lg-3">
+<div class="panel panel-info">
+<div class="panel-heading">Teachers Requests</div>
+<div class="panel-body">
+<ul class="list-group" id="trequests">
+    
+  </ul> 
+</div>
+</div>
+
+<div class="panel panel-info">
+<div class="panel-heading"> Approved Teachers </div>
+<div class="panel-body">
+<ul class="list-group" id="approvedt">
+    
+  </ul> 
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- approved teacher details-->
+
+<!-- Modal -->
+<div id="tdetail" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Teacher Detail</h4>
+      </div>
+      <div class="modal-body">
+	  <img id="tmdp" style="height:100px;width:100px;border-radius:50%" src=""><br><br>
+		<div class="form-group">
+			<label class="control-label col-sm-4" for="pwd"><span style="color:red;">*</span> Name:</label>
+			<div class="col-sm-8">
+				  <p id="tmname"></p>
+			</div>
+		
+			 <br> <br>
+		
+				<label class="control-label col-sm-4">Mobile No:</label>
+				<div class="col-sm-8">
+				  <p id="tmmobileno"></p>
+				</div>
+			  
+			  <br><br>
+			  
+				<label class="control-label col-sm-4" >Address: </label>
+				<div class="col-sm-8">
+				  <p id="tmaddress"></p>
+				</div>
+			  
+			  <br><br>
+			
+				<label class="control-label col-sm-4" ><span style="color:red;">*</span> Gender: </label>
+				<div class="col-sm-8">
+				  <p id="tmgender"></p>
+				</div>
+			  
+			  <br><br>
+			  
+				<label class="control-label col-sm-4" >Subjects: </label>
+				<div class="col-sm-8">
+				  <p id="tmsub"></p>
+				</div>
+			  </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<!--firebase script start-->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-storage.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBsf5uFjgVtU7vnjr4zgHOr23fCKS7gGNw",
+    authDomain: "attend2.firebaseapp.com",
+    databaseURL: "https://attend2.firebaseio.com",
+    projectId: "attend2",
+    storageBucket: "attend2.appspot.com",
+    messagingSenderId: "561068205548",
+    appId: "1:561068205548:web:dbbb8b9231ae22fb420cc9",
+    measurementId: "G-XS5G8E6VRJ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<!-- firebase script end-->
+<script src="admin.js"></script>
+</body>
+</html>

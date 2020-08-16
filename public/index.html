@@ -1,0 +1,397 @@
+<html>
+<head>
+<title>Digital Attendence Managment System | Attend2.web.app </title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+.navbar{
+border-radius:0px;
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">attend2.web.App</a>
+    </div>
+    <!--<ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Page 1</a></li>
+      <li><a href="#">Page 2</a></li>
+    </ul>-->
+    <ul class="nav navbar-nav navbar-right">
+      <li title="scn.arn@gmail.com"><a href="mailto:scn.arn@gmail.com"><span class="glyphicon glyphicon-phone"></span> Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container" id="login-container">
+<div class="row" style="background:#E3D1FF">
+
+<!-- Admin Log in -->
+<div class="col-lg-4">
+<div style="width:100%;text-align:center"><h3>Log In / Sign Up</h3></div>
+<br>
+
+		<button class="btn btn-danger btn-block btn-lg" title="Press This Button if you have an google account" onclick="googleSignIn()"><img src="https://storage.googleapis.com/operating-anagram-8280/apple-touch-icon.png" style="height:30px;width:30px;float:left"> Log in with Google</button><br>
+		<button class="btn btn-primary btn-block btn-lg" title="Press This Button if you have an facebook account" onclick="fbSignIn()"><img src="https://www.facebook.com/favicon.ico" style="height:30px;width:30px;float:left"> Log in with facebook</button>
+		<br><br>
+  <div class="input-group">
+    <span class="input-group-addon" style="background:#E3D1FF;border:0px;border-bottom:2px solid #fff">OR</span>
+  </div>
+  <br><br>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    <input id="login-email" type="text" class="form-control input-lg" name="email" placeholder="Email">
+  </div>
+  <br>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+    <input id="login-password" type="password" class="form-control input-lg" name="password" placeholder="Password">
+  </div>
+  <br>
+    <button class="btn btn-info btn-block btn-lg" title="Press This Button if you have an account" onclick="signin()">Log In</button>
+  <br>
+	<button class="btn btn-info btn-block btn-lg" title="Press This Button if you have not any account" onclick="signup()">Create Account</button>
+	<br>
+	<button class="btn btn-link btn-block btn-sm" onclick="resetPassword()">Forgot Password</button>
+	
+
+<br>
+<div class="alert alert-danger alert-dismissible fade in" id="login-error-div" style="display:none">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <span id="login-error"></span>
+  </div>
+  
+</div>
+<div class="col-lg-8"><br><img src="https://cdn.pixabay.com/photo/2017/09/08/00/37/friend-2727305_960_720.jpg"style="width:100%;height:80%;"></div>
+
+</div>
+</div>
+
+
+
+
+<!-- second container shown only when new user sign up -->
+<div class="container" style="position:fixed;top:0px;z-index:9;width:100%;display:none" id="sign-up-option">
+<div class="row" style="background:#C4D1FF">
+<div class="col-lg-4"></div>
+<!-- Chhose the option student/teacher/admin -->
+<div class="col-lg-4">
+<br><br><br><br>
+<div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Successfully Signed Up as</strong> <span id="sc-1"></span>
+</div>
+<div style="width:100%;text-align:center"><h3><i class="glyphicon glyphicon-hand-down"></i> Welcome <span id="sc-2"></span></h3></div>
+<div style="width:100%;text-align:center"><h3>Are you Student, Teacher or College?</h3></div>
+<br>
+
+  <br>
+    <button class="btn btn-warning btn-block btn-lg" onclick="studentPopup()">Student/Parents</button>
+  <br>
+	<button class="btn btn-warning btn-block btn-lg" onclick="teacherPopup()">Teacher</button>
+	<br>
+		<button class="btn btn-warning btn-block btn-lg" title="Press This Button if you are Admin" onclick="adminPopup()">Admin (College)</button>
+<br><br><br><br><br><br><br><br><br><br>
+</div>
+
+</div>
+</div>
+
+<!-- Info form for Admin/college -->
+<div class="container" style="display:none" id="admin-info-form">
+<div class="row" style="background:#f8f8f8">
+<div class="col-lg-3"></div>
+<!--  -->
+<div class="col-lg-6">
+<br><br>
+
+<div style="width:100%;text-align:center"><h3>Admin Info </h3></div>
+
+<br>
+
+  <div class="form-group">
+    <label class="control-label col-sm-4" for="email"><span style="color:red;">*</span> College Name:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="college-name" required placeholder="Enter College Name">
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label class="control-label col-sm-4" for="pwd"><span style="color:red;">*</span> Admin Name:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="admin-name" required placeholder="Enter Admin Name">
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label class="control-label col-sm-4" ><span style="color:red;">*</span> Gender: </label>
+    <div class="col-sm-8">
+      <input type="radio"  id="teacher-gender" name="gender" value="male"> <label>  Male</label>
+	  <input type="radio"  id="teacher-gender" name="gender" value="female"> <label>  Female</label>
+    </div>
+  </div>
+ <br><br>
+ <div class="form-group">
+    <label class="control-label col-sm-4" for="pwd"><span style="color:red;">*</span> University Name:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="university-name" placeholder="Enter University">
+    </div>
+  </div>
+ <br><br>
+ <div class="form-group">
+    <label class="control-label col-sm-4" for="pwd">Mobile No:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="mobile-no" placeholder="Enter Mobile No.">
+    </div>
+  </div>
+ <br><br>
+ <div class="form-group">
+    <label class="control-label col-sm-4" for="pwd">Website:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="website" placeholder="Enter Website">
+    </div>
+  </div>
+ <br><br>
+<div class="form-group">
+    <label class="control-label col-sm-4" for="pwd"><span style="color:red;">*</span> Address:</label>
+    <div class="col-sm-8">
+      <textarea class="form-control" id="address"> </textarea>
+    </div>
+  </div>
+ <br><br> <br>
+ <button class="btn btn-info btn-block" onclick="saveAdminInfo()">Save</button>
+
+<br><br><br><br><br><br><br>
+</div>
+
+</div>
+</div> 
+ 
+ 
+ 
+ 
+ <!-- Info form for Teacher  -->
+<div class="container" style="display:none" id="teacher-info-form">
+<div class="row" style="background:#f8f8f8">
+<div class="col-lg-3"></div>
+<!--  -->
+<div class="col-lg-6">
+<br><br>
+
+<div style="width:100%;text-align:center"><h3>Teacher Info </h3></div>
+ 
+ <br><br>
+ <div class="form-group">
+    <label class="control-label col-sm-4" for="pwd"><span style="color:red;">*</span> Name:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="teacher-name" placeholder="Enter your Name">
+    </div>
+  </div>
+ <br> <br>
+ <div class="form-group">
+    <label class="control-label col-sm-4">Mobile No:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="teacher-mobile-no" placeholder="Enter Mobile No.">
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label class="control-label col-sm-4" >Address: </label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="teacher-address" placeholder="Address">
+    </div>
+  </div>
+  <br><br>
+<div class="form-group">
+    <label class="control-label col-sm-4" ><span style="color:red;">*</span> Gender: </label>
+    <div class="col-sm-8">
+      <input type="radio"  id="teacher-gender" name="gender" value="male"> <label>  Male</label>
+	  <input type="radio"  id="teacher-gender" name="gender" value="female"> <label>  Female</label>
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label class="control-label col-sm-4" >Subjects: </label>
+    <div class="col-sm-8">
+      <input type="checkbox"  id="teacher-subjects" name="sub" value="English"> <label>  English </label><br>
+	  <input type="checkbox"  id="teacher-subjects" name="sub" value="Programming"> <label>  Programming</label><br>
+	  <input type="checkbox"  id="teacher-subjects" name="sub" value="Date Structure"> <label>  Data Structure </label><br>
+	  <input type="checkbox"  id="teacher-subjects" name="sub" value="Algorithm"> <label>  Algorithm</label><br>
+	  <input type="checkbox"  id="teacher-subjects" name="sub" value="Maths"> <label>  Maths</label><br>
+	  <input type="checkbox"  id="teacher-subjects" name="sub" value="Physics"> <label>  Physics </label><br>
+    </div>
+  </div>
+  <br><br>
+  <button class="btn btn-info btn-block" onclick="saveTeacherInfo()">Save</button>
+
+<br><br><br><br><br><br><br>
+</div>
+
+</div>
+</div> 
+
+
+
+ <!-- Info form for Students  -->
+<div class="container" style="display:none" id="student-info-form">
+<div class="row" style="background:#f8f8f8">
+<div class="col-lg-3"></div>
+<!--  -->
+<div class="col-lg-6">
+<br><br>
+
+<div style="width:100%;text-align:center"><h3>Student Info</h3></div>
+ 
+ <br><br>
+ <div class="form-group">
+    <label class="control-label col-sm-4"><span style="color:red;">*</span> Name:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="student-name" placeholder="Enter your Name">
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label class="control-label col-sm-4"><span style="color:red;">*</span> Father's Name:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="student-father-name" placeholder="Enter your Father's Name">
+    </div>
+  </div>
+ <br> <br>
+ <div class="form-group">
+    <label class="control-label col-sm-4"> Roll No:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="student-roll-no" placeholder="Enter your Roll No.">
+    </div>
+  </div>
+  <br><br>
+ <div class="form-group">
+    <label class="control-label col-sm-4"><span style="color:red;">*</span> Branch:</label>
+    <div class="col-sm-8">
+      <select class="form-control" id="student-branch">
+		<option value="Computer Engineering">Computer Engineering</option>
+		<option value="Mechanical Engineering">Mechanical Engineering</option>
+		<option value="Civil Engineering">Civil Engineering</option>
+		<option value="Electrical Engineering">Electrical Engineering</option>
+		<option value="Electronics Engineering">Electronics Engineering</option>
+		<option value="Automible Engineering">Automible Engineering</option>
+	  </select>
+	  
+    </div>
+  </div>
+  <br><br>
+ <div class="form-group">
+    <label class="control-label col-sm-4"><span style="color:red;">*</span> Semester:</label>
+    <div class="col-sm-8">
+      <select class="form-control" id="student-sem">
+		<option value="1">1st</option>
+		<option value="2">2nd</option>
+		<option value="3">3rd</option>
+		<option value="4">4th</option>
+		<option value="5">5th</option>
+		<option value="6">6th</option>
+		<option value="7">7th</option>
+		<option value="8">8th</option>
+		<option value="9">9th</option>
+		<option value="10">10th</option>
+	  </select>
+	  
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label class="control-label col-sm-4"><span style="color:red;">*</span> Course Name:</label>
+    <div class="col-sm-8">
+      <select class="form-control" id="student-course">
+		<option value="btech">B.Tech.</option>
+		<option value="diploma">Diploma (Polytechnic)</option>
+		<option value="msc">M.Sc.</option>
+		<option value="mtech">M.Tech.</option>
+		<option value="bsc">B.Sc.</option>
+		<option value="ba">B.A.</option>
+		<option value="ma">M.A.</option>
+		<option value="bcom">B.Com.</option>
+		<option value="mcom">M.Com.</option>
+		<option value="phd">PHD.</option>
+	  </select>
+	  
+    </div>
+  </div>
+  <br><br>
+ <div class="form-group">
+    <label class="control-label col-sm-4">Mobile No:</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="student-mobile-no" placeholder="Enter Mobile No.">
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label class="control-label col-sm-4" >Address: </label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="student-address" placeholder="Address">
+    </div>
+  </div>
+  <br><br>
+<div class="form-group">
+    <label class="control-label col-sm-4" ><span style="color:red;">*</span> Gender: </label>
+    <div class="col-sm-8">
+      <input type="radio"  id="teacher-gender" name="gender" value="male"> <label>  Male</label>
+	  <input type="radio"  id="teacher-gender" name="gender" value="female"> <label>  Female</label>
+    </div>
+  </div>
+  <br><br>
+  <button class="btn btn-info btn-block" onclick="saveStudentInfo()">Save</button>
+
+<br><br><br><br><br><br><br>
+</div>
+
+</div>
+</div> 
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+<!--firebase script start-->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBsf5uFjgVtU7vnjr4zgHOr23fCKS7gGNw",
+    authDomain: "attend2.firebaseapp.com",
+    databaseURL: "https://attend2.firebaseio.com",
+    projectId: "attend2",
+    storageBucket: "attend2.appspot.com",
+    messagingSenderId: "561068205548",
+    appId: "1:561068205548:web:dbbb8b9231ae22fb420cc9",
+    measurementId: "G-XS5G8E6VRJ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<!-- firebase script end-->
+<script src="app.js"></script>
+</body>
+</html>

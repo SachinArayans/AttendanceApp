@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Authentication</title>
+
+</head>
+
+<body>
+
+
+Sign up form </br>
+Name:>><input type="text" name="Name" id='usr'></br>
+Password:>><input type="password" name="Password" id='psd'></br>
+email:>><input type="text" name="Email" id='email'></br>
+<button onclick="signup()">Sign Up</button>
+<hr>
+email:>><input type="text" name="email" id='e-email'></br>
+Password:>><input type="password" name="pass" id='e-pass'></br>
+<button onclick="signin()">Sign In</button>
+<hr>
+<button onclick="inf()">Print Info</button>
+
+<!--firebase script start-->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBsf5uFjgVtU7vnjr4zgHOr23fCKS7gGNw",
+    authDomain: "attend2.firebaseapp.com",
+    databaseURL: "https://attend2.firebaseio.com",
+    projectId: "attend2",
+    storageBucket: "attend2.appspot.com",
+    messagingSenderId: "561068205548",
+    appId: "1:561068205548:web:dbbb8b9231ae22fb420cc9",
+    measurementId: "G-XS5G8E6VRJ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<!-- firebase script end-->
+
+<script src="app.js"></script>
+</body>
+
+</html>
